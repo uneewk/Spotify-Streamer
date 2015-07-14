@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Spotify Streamer</string>
+    <string name="artist_search_hint">Enter Artist</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_top_ten_tracks">Top 10 Tracks</string>
+    <string name="top_ten_artist_image">Top 10 Artist Image</string>
+</resources>
