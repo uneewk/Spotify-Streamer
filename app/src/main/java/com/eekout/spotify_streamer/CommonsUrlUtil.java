@@ -1,5 +1,8 @@
 package com.eekout.spotify_streamer;
 
+import android.net.Uri;
+import android.util.Patterns;
+
 import java.util.List;
 
 import kaaes.spotify.webapi.android.models.Image;
@@ -7,18 +10,22 @@ import kaaes.spotify.webapi.android.models.Image;
 /**
  * Utility class for retrieving image urls.
  */
-public final class ImageUrlUtil {
+public final class CommonsUrlUtil {
+
+    private CommonsUrlUtil() {
+        // No Instantiation
+    }
 
     public static String largeImage(final List<Image> images) {
         if (images != null && !images.isEmpty()) {
-            return images.get(getLargeImageIndex(images)).url;
+            return sanitizeUrl(images.get(getLargeImageIndex(images)).url);
         }
         return null;
     }
 
     public static String smallImage(final List<Image> images) {
         if (images != null && !images.isEmpty()) {
-            return images.get(getSmallImageIndex(images)).url;
+            return sanitizeUrl(images.get(getSmallImageIndex(images)).url);
         }
         return null;
     }
@@ -43,5 +50,15 @@ public final class ImageUrlUtil {
             return images.size() - largeIndex;
         }
         return 0;
+    }
+
+    public static String sanitizeUrl(String url) {
+        if (url == null
+                || url.isEmpty()
+                || !Patterns.WEB_URL.matcher(url).matches()) {
+            return null;
+        }
+
+        return url;
     }
 }

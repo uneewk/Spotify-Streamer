@@ -10,13 +10,28 @@
     tools:context=".MainActivityFragment"
     android:weightSum="1">
 
-    <EditText
+    <!-- <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/artist_search_text2"
+        android:hint="@string/artist_search_hint"
+        android:inputType="textEmailAddress"
+        android:imeOptions="actionDone" /> -->
+
+    <SearchView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/artist_search_text"
-        android:hint="@string/artist_search_hint"
-        android:inputType="textEmailAddress"
-        android:imeOptions="actionDone" />
+        android:layout_gravity="center" />
+
+    <ProgressBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:indeterminate="true"
+        android:id="@+id/artist_search_progress_bar"
+        style="?android:attr/progressBarStyleLarge"
+        android:visibility="invisible" />
 
     <ListView
         android:layout_width="match_parent"

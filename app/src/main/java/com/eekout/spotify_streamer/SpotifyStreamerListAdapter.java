@@ -38,30 +38,57 @@ public class SpotifyStreamerListAdapter extends ArrayAdapter<ViewInfo> {
     }
 
     private View getTrackView(TrackView trackViewInfo, View convertView, ViewGroup parent) {
-        View rootView = LayoutInflater.from(getContext()).inflate(R.layout.top_ten_track, parent, false);
+        TrackViewHolder holder;
 
-        ImageView imageView = (ImageView) rootView.findViewById(R.id.top_ten_artist_thumbnail);
-        Picasso.with(getContext()).load(trackViewInfo.getSmallImageUrl()).into(imageView);
+        if (convertView != null) {
+            holder = (TrackViewHolder) convertView.getTag();
+        } else {
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.top_ten_track, parent, false);
 
-        TextView topText = (TextView) rootView.findViewById(R.id.artist_detail_topLine);
-        topText.setText(trackViewInfo.getName());
+            holder = new TrackViewHolder();
+            holder.imageView = (ImageView) convertView.findViewById(R.id.top_ten_artist_thumbnail);
+            holder.topText = (TextView) convertView.findViewById(R.id.artist_detail_topLine);
+            holder.bottomText = (TextView) convertView.findViewById(R.id.artist_detail_bottomLine);
 
-        TextView bottomText = (TextView) rootView.findViewById(R.id.artist_detail_bottomLine);
-        bottomText.setText(trackViewInfo.getAlbum());
+            convertView.setTag(holder);
+        }
 
-        return rootView;
+        Picasso.with(getContext()).load(trackViewInfo.getSmallImageUrl()).into(holder.imageView);
+        holder.topText.setText(trackViewInfo.getName());
+        holder.bottomText.setText(trackViewInfo.getAlbum());
+
+        return convertView;
     }
 
     private View getArtistView(ArtistView artistViewInfo, View convertView, ViewGroup parent) {
-        View rootView = LayoutInflater.from(getContext()).inflate(R.layout.results_view_item, parent, false);
+        ArtistViewHolder holder;
 
-        ImageView imageView = (ImageView) rootView.findViewById(R.id.artist_thumbnail);
-        Picasso.with(getContext()).load(artistViewInfo.getSmallImageUrl()).into(imageView);
+        if (convertView != null) {
+            holder = (ArtistViewHolder) convertView.getTag();
+        } else {
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.results_view_item, parent, false);
 
-        TextView topText = (TextView) rootView.findViewById(R.id.artist_detail_text);
-        topText.setText(artistViewInfo.getName());
+            holder = new ArtistViewHolder();
+            holder.imageView = (ImageView) convertView.findViewById(R.id.artist_thumbnail);
+            holder.topText = (TextView) convertView.findViewById(R.id.artist_detail_text);
 
-        return rootView;
+            convertView.setTag(holder);
+        }
+
+        holder.topText.setText(artistViewInfo.getName());
+        Picasso.with(getContext()).load(artistViewInfo.getSmallImageUrl()).into(holder.imageView);
+
+        return convertView;
+    }
+
+    // ViewHolder pattern
+    static class ArtistViewHolder {
+        ImageView imageView;
+        TextView topText;
+    }
+
+    static class TrackViewHolder extends ArtistViewHolder {
+        TextView bottomText;
     }
 
 }
